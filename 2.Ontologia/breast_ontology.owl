@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9">
+    <Prefix name="" IRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="untitled-ontology-9" IRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9#"/>
+    <Declaration>
+        <Class IRI="#Cancer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Diagnosis"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Patient"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#area_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#area_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#area_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#compactenss_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#compactenss_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#compactenss_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concave_points_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concave_points_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concave_points_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concavity_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concavity_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#concavity_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#diagnosis"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#fractal_dimension_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#fractal_dimension_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#fractal_dimension_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#id"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#perimeter_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#perimeter_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#perimeter_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#radius_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#radius_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#radius_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#simmetry_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#simmetry_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#simmetry_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#smoothness_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#smoothness_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#smoothness_worst"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#texture_mean"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#texture_se"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#texture_worst"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diagnosis_B"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diagnosis_M"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Patient_000"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Patient_001"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Patient_002"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Patient_003"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Cancer"/>
+        <Class IRI="#Patient"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Diagnosis"/>
+        <Class IRI="#Patient"/>
+    </SubClassOf>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <NamedIndividual IRI="#Diagnosis_B"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <NamedIndividual IRI="#Diagnosis_B"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <NamedIndividual IRI="#Diagnosis_M"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <NamedIndividual IRI="#Diagnosis_M"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diagnosis"/>
+        <NamedIndividual IRI="#Diagnosis_B"/>
+        <Literal>B</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diagnosis"/>
+        <NamedIndividual IRI="#Diagnosis_M"/>
+        <Literal>M</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#area_mean"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">273.9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#id"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#perimeter_mean"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">60.34</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_mean"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9.504</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_worst"/>
+        <NamedIndividual IRI="#Patient_000"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10.23</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#area_mean"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">520</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#id"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">001</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#perimeter_mean"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">85.63</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_mean"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">13.08</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_worst"/>
+        <NamedIndividual IRI="#Patient_001"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">14.5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#area_mean"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1001</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#id"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">002</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#perimeter_mean"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">122.8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_mean"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">17.99</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_worst"/>
+        <NamedIndividual IRI="#Patient_002"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">25.38</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#area_mean"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">797.8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#id"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">003</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#perimeter_mean"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">102.7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_mean"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16.02</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#radius_worst"/>
+        <NamedIndividual IRI="#Patient_003"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">19.19</Literal>
+    </DataPropertyAssertion>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <Class IRI="#Patient"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <Class IRI="#Diagnosis"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#smoothness_mean"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#area_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#area_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#area_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#compactenss_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#compactenss_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#compactenss_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concave_points_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concave_points_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concave_points_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concavity_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concavity_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#concavity_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#diagnosis"/>
+        <Class IRI="#Diagnosis"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#fractal_dimension_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#fractal_dimension_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#fractal_dimension_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#id"/>
+        <Class IRI="#Patient"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#perimeter_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#perimeter_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#perimeter_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#radius_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#radius_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#radius_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#simmetry_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#simmetry_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#simmetry_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#smoothness_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#smoothness_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#smoothness_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#texture_mean"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#texture_se"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#texture_worst"/>
+        <Class IRI="#Cancer"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#area_worst"/>
+        <Datatype abbreviatedIRI="xsd:decimal"/>
+    </DataPropertyRange>
+</Ontology>
