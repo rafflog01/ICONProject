@@ -1,3 +1,7 @@
+"""
+@author: Raffaele Loglsci
+
+"""
 import numpy as np
 import pandas as pd
 import seaborn as sn
@@ -66,7 +70,6 @@ print("Valore migliore random_state: {}".format(best_random_state))
 
 # Definisci il modello con i parametri ottimali
 clf = RandomForestClassifier(max_depth=int(best_max_depth), random_state=int(best_random_state), n_estimators=100)
-# ----------------------------------------------------------------------------------------------------------------------
 
 # Addestramento del classificatore Random Forest
 clf.fit(X_train, y_train)

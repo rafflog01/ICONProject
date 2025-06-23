@@ -1,3 +1,7 @@
+"""
+@author: Raffaele Loglisci
+
+"""
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,7 +23,7 @@ except FileNotFoundError:
 # Pulizia nomi colonne: rimuove eventuali spazi finali
 dataset.columns = dataset.columns.str.strip()
 
-# Elimina la colonna 'id' se presente (dato identificativo non utile per l'analisi)
+# Elimina la colonna 'id' se presente
 if 'id' in dataset.columns:
     dataset = dataset.drop('id', axis=1)
 

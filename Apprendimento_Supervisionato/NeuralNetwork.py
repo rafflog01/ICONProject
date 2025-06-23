@@ -1,3 +1,7 @@
+"""
+@author: Raffaele Loglsci
+
+"""
 from inspect import signature
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
@@ -53,7 +57,6 @@ def create_model():
         keras.layers.Dense(1, activation='sigmoid')
     ])
 
-    # Compilazione del modello
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
     return model
@@ -120,7 +123,7 @@ print('AUC: %.3f' % auc)
 
 # Calcolo della curva ROC e visualizzazione
 fpr, tpr, thresholds = roc_curve(y_test, probs)
-plt.plot([0, 1], [0, 1], linestyle='--')  # Usa plt invece di pyplot
+plt.plot([0, 1], [0, 1], linestyle='--')
 plt.plot(fpr, tpr, marker='.')
 plt.xlabel('FP RATE')
 plt.ylabel('TP RATE')

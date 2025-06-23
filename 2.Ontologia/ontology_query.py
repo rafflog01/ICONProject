@@ -1,3 +1,7 @@
+"""
+@autor: Raffaele Loglisci
+
+"""
 from owlready2 import *
 import os
 
