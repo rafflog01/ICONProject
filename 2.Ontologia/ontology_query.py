@@ -1,56 +1,89 @@
 """
-@autor: Raffaele Loglisci
-
+@autore: Raffaele Loglisci
 """
+
 from owlready2 import *
 import os
 
-print("ONTOLOGIA\n")
 
-# Ottieni il percorso assoluto del file
-current_dir = os.path.dirname(os.path.abspath(__file__))
-owl_file = os.path.join(current_dir, "breast_ontology.owl")
+def main():
+    print("=== CARICAMENTO ONTOLOGIA ===\n")
 
-onto = get_ontology(owl_file).load()
+    # Percorso file ontologia
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    owl_file = os.path.join(current_dir, "breast_ontology.owl")
 
-# Stampa di tutte le classi dell'ontologia
-print("####################################################################################################")
-print("LISTA DELLE CLASSI DELL'ONTOLOGIA\n")
-classes = list(onto.classes())
-for cls in classes:
-    print(f"• CLASSE: {cls.name}")
-print()
+    # Caricamento ontologia
+    onto = get_ontology(owl_file).load()
 
-# Stampa di tutte le object properties dell'ontologia
-print("####################################################################################################")
-print("LISTA DELLE OBJECT PROPERTIES DELL'ONTOLOGIA\n")
-object_properties = list(onto.object_properties())
-for prop in object_properties:
-    print(f"• OBJECT PROPERTY: {prop.name}")
-print()
+    # Stampa Classi
+    print("\n########################################")
+    print("LISTA CLASSI DELL'ONTOLOGIA\n")
+    for cls in onto.classes():
+        print(f"• CLASSE: {cls.name}")
 
-# Stampa di tutte le data properties dell'ontologia
-print("####################################################################################################")
-print("LISTA DELLE DATA PROPERTIES DELL'ONTOLOGIA\n")
-data_properties = list(onto.data_properties())
-for prop in data_properties:
-    print(f"• PROPERTY: {prop.name}")
-print()
+    # Stampa Object Properties
+    print("\n########################################")
+    print("LISTA OBJECT PROPERTIES DELL'ONTOLOGIA\n")
+    for prop in onto.object_properties():
+        print(f"• OBJECT PROPERTY: {prop.name}")
 
-print("\n##################################################QUERIES##################################################")
+    # Stampa Data Properties
+    print("\n########################################")
+    print("LISTA DATA PROPERTIES DELL'ONTOLOGIA\n")
+    for prop in onto.data_properties():
+        print(f"• DATA PROPERTY: {prop.name}")
 
-# Query per ottenere pazienti con diagnosi "B" (Benigni)
-diagnosis_B = onto.search_one(type=onto.Diagnosis, diagnosis="B")
-query_result = list(onto.search(type=onto.Patient, hasDiagnosis=diagnosis_B))
+    print("\n########## QUERY ESEMPI ##########")
 
-print("\nPAZIENTI CON DIAGNOSI BENIGNA:")
-for patient in query_result:
-    print(f"• PAZIENTI: {patient.name}")
+    # Esempio: Pazienti con Alta Probabilità di Sopravvivenza
+    AltaProb = getattr(onto, "AltaProbabilitaSopravvivenza", None)
+    if AltaProb:
+        risultati = onto.search(type=AltaProb)
+        print("\nPazienti con ALTA PROBABILITA' DI SOPRAVVIVENZA:")
+        for r in risultati:
+            print(f"• PAZIENTE: {r.name}")
+        if not risultati:
+            print("Nessun paziente trovato.")
+    else:
+        print("\nClasse 'AltaProbabilitaSopravvivenza' non presente nell'ontologia.")
 
-# Query per ottenere pazienti con diagnosi "M" (Maligni)
-diagnosis_M = onto.search_one(type=onto.Diagnosis, diagnosis="M")
-query_result = list(onto.search(type=onto.Patient, hasDiagnosis=diagnosis_M))
+    # Esempio: Pazienti con Bassa Probabilità di Sopravvivenza
+    BassaProb = getattr(onto, "BassaProbabilitaSopravvivenza", None)
+    if AltaProb:
+        risultati = onto.search(type=BassaProb)
+        print("\nPazienti con BASSA PROBABILITA' DI SOPRAVVIVENZA:")
+        for r in risultati:
+            print(f"• PAZIENTE: {r.name}")
+        if not risultati:
+            print("Nessun paziente trovato.")
+    else:
+        print("\nClasse 'BassaProbabilitaSopravvivenza' non presente nell'ontologia.")
 
-print("\nPAZIENTI CON DIAGNOSI MALIGNA:")
-for patient in query_result:
-    print(f"• PAZIENTI: {patient.name}")
+    # Esempio: Pazienti ad Alto Rischio di Recidiva
+    AltoRischio = getattr(onto, "PazienteAltoRischioRecidiva", None)
+    if AltoRischio:
+        risultati = onto.search(type=AltoRischio)
+        print("\nPazienti ad ALTO RISCHIO DI RECIDIVA:")
+        for r in risultati:
+            print(f"• PAZIENTE: {r.name}")
+        if not risultati:
+            print("Nessun paziente trovato.")
+    else:
+        print("\nClasse 'PazienteAltoRischioRecidiva' non presente nell'ontologia.")
+
+    # Esempio: Tumori presenti e i relativi pazienti (se relazioni definite)
+    Tumore = getattr(onto, "Tumore", None)
+    if Tumore:
+        tumori = list(onto.search(type=Tumore))
+        print(f"\nNUMERO DI TUMORI PRESENTI: {len(tumori)}")
+        for t in tumori:
+            print(f"• TUMORE: {t.name}")
+        if not tumori:
+            print("Nessun tumore trovato.")
+    else:
+        print("\nClasse 'Tumore' non presente nell'ontologia.")
+
+
+if __name__ == "__main__":
+    main()

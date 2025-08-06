@@ -1,424 +1,2285 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9"
+     xml:base="http://www.semanticweb.org/admin/ontologies/2025/7/untitled-ontology-5"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9">
-    <Prefix name="" IRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9/"/>
+     ontologyIRI="http://www.semanticweb.org/admin/ontologies/2025/7/untitled-ontology-5">
+    <Prefix name="" IRI="http://www.semanticweb.org/admin/ontologies/2025/7/untitled-ontology-5/"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Prefix name="untitled-ontology-9" IRI="http://www.semanticweb.org/utente/ontologies/2025/1/untitled-ontology-9#"/>
+    <Prefix name="swrl" IRI="http://www.w3.org/2003/11/swrl#"/>
+    <Prefix name="swrla" IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"/>
+    <Prefix name="swrlb" IRI="http://www.w3.org/2003/11/swrlb#"/>
+    <Prefix name="untitled-ontology-5" IRI="http://www.semanticweb.org/admin/ontologies/2025/7/untitled-ontology-5#"/>
     <Declaration>
-        <Class IRI="#Cancer"/>
+        <Class IRI="#AltaProbabilitaSopravvivenza"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Diagnosis"/>
+        <Class IRI="#BassaProbabilitaSopravvivenza"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Patient"/>
+        <Class IRI="#Diagnosi"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Paziente"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PazienteAltoRischioRecidiva"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sample"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sopravvivenza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tumore"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasDiagnosis"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#area_mean"/>
+        <ObjectProperty IRI="#hasSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#area_se"/>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#area_worst"/>
+        <ObjectProperty IRI="#hasTumor"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#compactenss_mean"/>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#compactenss_se"/>
+        <ObjectProperty IRI="#isSampleOf"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#compactenss_worst"/>
+        <ObjectProperty IRI="#isSurvivalOf"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concave_points_mean"/>
+        <ObjectProperty IRI="#isTumorOfSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concave_points_se"/>
+        <DataProperty IRI="#ageAtDiagnosis"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concave_points_worst"/>
+        <DataProperty IRI="#cancerType"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concavity_mean"/>
+        <DataProperty IRI="#cancerTypeDetailed"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concavity_se"/>
+        <DataProperty IRI="#diseaseFreeEvent"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#concavity_worst"/>
+        <DataProperty IRI="#diseaseFreeMonths"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#diagnosis"/>
+        <DataProperty IRI="#erPctPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#fractal_dimension_mean"/>
+        <DataProperty IRI="#erStatusOfPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#fractal_dimension_se"/>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#fractal_dimension_worst"/>
+        <DataProperty IRI="#her2FISHRatioPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#id"/>
+        <DataProperty IRI="#her2FISHRatioSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#perimeter_mean"/>
+        <DataProperty IRI="#her2FISHStatusPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#perimeter_se"/>
+        <DataProperty IRI="#her2FISHStatusSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#perimeter_worst"/>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#radius_mean"/>
+        <DataProperty IRI="#her2IHCScoreSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#radius_se"/>
+        <DataProperty IRI="#her2IHCStatusPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#radius_worst"/>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#simmetry_mean"/>
+        <DataProperty IRI="#her2PrimaryStatus"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#simmetry_se"/>
+        <DataProperty IRI="#hrStatusOfPrimary"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#simmetry_worst"/>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#smoothness_mean"/>
+        <DataProperty IRI="#lastCommunicationContact"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#smoothness_se"/>
+        <DataProperty IRI="#mStage"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#smoothness_worst"/>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#texture_mean"/>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#texture_se"/>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#texture_worst"/>
+        <DataProperty IRI="#mutationCount"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Diagnosis_B"/>
+        <DataProperty IRI="#nStage"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Diagnosis_M"/>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Patient_000"/>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Patient_001"/>
+        <DataProperty IRI="#oncotreeCode"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Patient_002"/>
+        <DataProperty IRI="#overallHER2Status"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#Patient_003"/>
+        <DataProperty IRI="#overallPatientHER2Status"/>
     </Declaration>
-    <SubClassOf>
-        <Class IRI="#Cancer"/>
-        <Class IRI="#Patient"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Diagnosis"/>
-        <Class IRI="#Patient"/>
-    </SubClassOf>
+    <Declaration>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#patientID"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#prPctPrimary"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#prStatusOfPrimary"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#primaryNuclearGrade"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#priorBreastPrimary"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#receptorStatusPrimary"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sampleId"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sampleType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sex"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#siteOfSample"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#studyID"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tStage"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#timeToDeathMonths"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#timeToDiagnosis"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tmbNonsynonymous"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tumorGrade"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tumorSampleHistology"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#tumorTissueOrigin"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#vitalStatus"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diag_0000004"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diag_0000015"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diag_0000129"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Diag_0001114"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000004"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000015"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000129"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000158"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0000806"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0001114"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Surv_0000004"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Surv_0000015"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Surv_0000129"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Surv_0001114"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="#Diagnosi"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Diagnosi"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Diagnosi"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Diagnosi"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#P-0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sample"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#P-0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#P-0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#AltaProbabilitaSopravvivenza"/>
+        <NamedIndividual IRI="#P-0000158"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000158"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#BassaProbabilitaSopravvivenza"/>
+        <NamedIndividual IRI="#P-0000806"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000806"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#BassaProbabilitaSopravvivenza"/>
+        <NamedIndividual IRI="#P-0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#PazienteAltoRischioRecidiva"/>
+        <NamedIndividual IRI="#P-0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#P-0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Tumore"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Tumore"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Tumore"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Tumore"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+    </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="#hasDiagnosis"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <NamedIndividual IRI="#Diagnosis_B"/>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSample"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasTumor"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <NamedIndividual IRI="#P-0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSample"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasTumor"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <NamedIndividual IRI="#P-0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSample"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasTumor"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <NamedIndividual IRI="#P-0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSample"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasTumor"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <NamedIndividual IRI="#P-0001114"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <NamedIndividual IRI="#P-0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <NamedIndividual IRI="#P-0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <NamedIndividual IRI="#P-0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <NamedIndividual IRI="#P-0001114"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasDiagnosis"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <NamedIndividual IRI="#Diagnosis_B"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasDiagnosis"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <NamedIndividual IRI="#Diagnosis_M"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#hasDiagnosis"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <NamedIndividual IRI="#Diagnosis_M"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#diagnosis"/>
-        <NamedIndividual IRI="#Diagnosis_B"/>
-        <Literal>B</Literal>
+        <DataProperty IRI="#mStage"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <Literal>M1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#diagnosis"/>
-        <NamedIndividual IRI="#Diagnosis_M"/>
-        <Literal>M</Literal>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <Literal>Pre</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#area_mean"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">273.9</Literal>
+        <DataProperty IRI="#nStage"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <Literal>N3a</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#id"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">000</Literal>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <Literal>IV</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#perimeter_mean"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">60.34</Literal>
+        <DataProperty IRI="#tStage"/>
+        <NamedIndividual IRI="#Diag_0000004"/>
+        <Literal>T1c</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_mean"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">9.504</Literal>
+        <DataProperty IRI="#mStage"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal>M0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_worst"/>
-        <NamedIndividual IRI="#Patient_000"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">10.23</Literal>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal>Pre</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#area_mean"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">520</Literal>
+        <DataProperty IRI="#nStage"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal>N1mi</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#id"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">001</Literal>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal>IB</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#perimeter_mean"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">85.63</Literal>
+        <DataProperty IRI="#tStage"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal>T1b</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_mean"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">13.08</Literal>
+        <DataProperty IRI="#timeToDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">548.0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_worst"/>
-        <NamedIndividual IRI="#Patient_001"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">14.5</Literal>
+        <DataProperty IRI="#mStage"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal>M1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#area_mean"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1001</Literal>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal>Peri</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#id"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">002</Literal>
+        <DataProperty IRI="#nStage"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal>NX</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#perimeter_mean"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">122.8</Literal>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal>IV</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_mean"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">17.99</Literal>
+        <DataProperty IRI="#tStage"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal>TX</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_worst"/>
-        <NamedIndividual IRI="#Patient_002"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">25.38</Literal>
+        <DataProperty IRI="#timeToDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">549.38</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#area_mean"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">797.8</Literal>
+        <DataProperty IRI="#mStage"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <Literal>M0</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#id"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">003</Literal>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <Literal>Post</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#perimeter_mean"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">102.7</Literal>
+        <DataProperty IRI="#nStage"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <Literal>N1a</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_mean"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">16.02</Literal>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <Literal>IIB</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="#radius_worst"/>
-        <NamedIndividual IRI="#Patient_003"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">19.19</Literal>
+        <DataProperty IRI="#tStage"/>
+        <NamedIndividual IRI="#Diag_0001114"/>
+        <Literal>T2</Literal>
     </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">37</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">4</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">445</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#patientID"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal>P-0000004</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sex"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal>Female</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#vitalStatus"/>
+        <NamedIndividual IRI="#P-0000004"/>
+        <Literal>Alive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal>0-1+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleId"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal>P-0000004-T01-IM3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleType"/>
+        <NamedIndividual IRI="#P-0000004-T01-IM3"/>
+        <Literal>Primary</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">37</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">534</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#patientID"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal>P-0000015</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sex"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal>Female</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#vitalStatus"/>
+        <NamedIndividual IRI="#P-0000015"/>
+        <Literal>Deceased</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHRatioSequencedSample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal>0+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleId"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal>P-0000015-T01-IM3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleType"/>
+        <NamedIndividual IRI="#P-0000015-T01-IM3"/>
+        <Literal>Metastasis</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">46</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">576</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#patientID"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal>P-0000129</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sex"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal>Female</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#vitalStatus"/>
+        <NamedIndividual IRI="#P-0000129"/>
+        <Literal>Deceased</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHRatioSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHStatusSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScoreSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>2+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>Equivocal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleId"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>P-0000129-T01-IM3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleType"/>
+        <NamedIndividual IRI="#P-0000129-T01-IM3"/>
+        <Literal>Primary</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0000158"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">36</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0000158"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0000158"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0000158"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#vitalStatus"/>
+        <NamedIndividual IRI="#P-0000158"/>
+        <Literal>Alive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0000806"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">56</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0000806"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0000806"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0000806"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">50</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#mutationCount"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">648</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#patientID"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal>P-0001114</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sex"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal>Female</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#vitalStatus"/>
+        <NamedIndividual IRI="#P-0001114"/>
+        <Literal>Alive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScoreSequencedSample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal>0+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal>Equivocal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleId"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal>P-0001114-T02-IM3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sampleType"/>
+        <NamedIndividual IRI="#P-0001114-T02-IM3"/>
+        <Literal>Metastasis</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">1.1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#lastCommunicationContact"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">14484</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">446.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">0.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <NamedIndividual IRI="#Surv_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">31.5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">68.9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#lastCommunicationContact"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">16656</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">519.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">98.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#timeToDeathMonths"/>
+        <NamedIndividual IRI="#Surv_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">548.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">0.9</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#lastCommunicationContact"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">18029</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">550.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">43.6</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#timeToDeathMonths"/>
+        <NamedIndividual IRI="#Surv_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">593.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">35.7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">73.0</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+        <NamedIndividual IRI="#Surv_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerType"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Breast Cancer</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erPctPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">90</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>2+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2PrimaryStatus"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#oncotreeCode"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>IDC</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHER2Status"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>HR+/HER2-</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Left</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorGrade"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">2</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <NamedIndividual IRI="#Tumor_0000004"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerType"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Breast Cancer</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erPctPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">90</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHRatioPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">0.7</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHStatusPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>0+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2PrimaryStatus"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#oncotreeCode"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>IDC</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHER2Status"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>HR+/HER2-</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Right</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorGrade"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <NamedIndividual IRI="#Tumor_0000015"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerType"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Breast Cancer</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erPctPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">90</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#erStatusOfPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHRatioPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#float">1.8</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2FISHStatusPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>2+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2IHCStatusPrimary"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Equivocal</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#her2PrimaryStatus"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Negative</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#oncotreeCode"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>IDC</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHER2Status"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Positive</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>HR+/HER2+</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Right</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorGrade"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <NamedIndividual IRI="#Tumor_0000129"/>
+        <Literal>Breast Invasive Ductal Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerType"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <Literal>Breast Cancer</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <Literal>Breast Invasive Lobular Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <Literal>Left</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorGrade"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <NamedIndividual IRI="#Tumor_0001114"/>
+        <Literal>Breast Invasive Lobular Carcinoma</Literal>
+    </DataPropertyAssertion>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasDiagnosis"/>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasSample"/>
+        <ObjectProperty IRI="#isSampleOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#hasTumor"/>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+    </InverseObjectProperties>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasDiagnosis"/>
-        <Class IRI="#Patient"/>
+        <Class IRI="#Tumore"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasSample"/>
+        <Class IRI="#Paziente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <Class IRI="#Paziente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTumor"/>
+        <Class IRI="#Sample"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <Class IRI="#Diagnosi"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <Class IRI="#Sample"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <Class IRI="#Paziente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <Class IRI="#Tumore"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasDiagnosis"/>
-        <Class IRI="#Diagnosis"/>
+        <Class IRI="#Diagnosi"/>
     </ObjectPropertyRange>
-    <SubDataPropertyOf>
-        <DataProperty IRI="#smoothness_mean"/>
-        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
-    </SubDataPropertyOf>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSample"/>
+        <Class IRI="#Sample"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasSurvivalEvent"/>
+        <Class IRI="#Sopravvivenza"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTumor"/>
+        <Class IRI="#Tumore"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isDiagnosisOf"/>
+        <Class IRI="#Tumore"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSampleOf"/>
+        <Class IRI="#Paziente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isSurvivalOf"/>
+        <Class IRI="#Sopravvivenza"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isTumorOfSample"/>
+        <Class IRI="#Sample"/>
+    </ObjectPropertyRange>
     <DataPropertyDomain>
-        <DataProperty IRI="#area_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <Class IRI="#Paziente"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#area_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#cancerType"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#area_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#compactenss_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <Class IRI="#Sopravvivenza"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#compactenss_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <Class IRI="#Sopravvivenza"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#compactenss_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#erPctPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concave_points_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#erStatusOfPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concave_points_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concave_points_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2FISHRatioPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concavity_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2FISHRatioSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concavity_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2FISHStatusPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#concavity_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2FISHStatusSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#diagnosis"/>
-        <Class IRI="#Diagnosis"/>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#fractal_dimension_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2IHCScoreSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#fractal_dimension_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2IHCStatusPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#fractal_dimension_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#id"/>
-        <Class IRI="#Patient"/>
+        <DataProperty IRI="#her2PrimaryStatus"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#perimeter_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#hrStatusOfPrimary"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#perimeter_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <Class IRI="#Sample"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#perimeter_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#lastCommunicationContact"/>
+        <Class IRI="#Sopravvivenza"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#radius_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#mStage"/>
+        <Class IRI="#Diagnosi"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#radius_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <Class IRI="#Diagnosi"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#radius_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <Class IRI="#Sopravvivenza"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#simmetry_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
+        <Class IRI="#Sopravvivenza"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#simmetry_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#mutationCount"/>
+        <Class IRI="#Paziente"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#simmetry_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#nStage"/>
+        <Class IRI="#Diagnosi"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#smoothness_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <Class IRI="#Paziente"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#smoothness_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <Class IRI="#Paziente"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#smoothness_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#oncotreeCode"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#texture_mean"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#overallHER2Status"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#texture_se"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#overallPatientHER2Status"/>
+        <Class IRI="#Tumore"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
-        <DataProperty IRI="#texture_worst"/>
-        <Class IRI="#Cancer"/>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <Class IRI="#Sopravvivenza"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+        <Class IRI="#Sopravvivenza"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#patientID"/>
+        <Class IRI="#Paziente"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#prPctPrimary"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#prStatusOfPrimary"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <Class IRI="#Sample"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#primaryNuclearGrade"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <Class IRI="#Paziente"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <Class IRI="#Paziente"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#receptorStatusPrimary"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#sampleId"/>
+        <Class IRI="#Sample"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#sampleType"/>
+        <Class IRI="#Sample"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#sex"/>
+        <Class IRI="#Paziente"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#siteOfSample"/>
+        <Class IRI="#Sample"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <Class IRI="#Diagnosi"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#studyID"/>
+        <Class IRI="#Paziente"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tStage"/>
+        <Class IRI="#Diagnosi"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#timeToDeathMonths"/>
+        <Class IRI="#Sopravvivenza"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#timeToDiagnosis"/>
+        <Class IRI="#Diagnosi"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tmbNonsynonymous"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tumorGrade"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#tumorTissueOrigin"/>
+        <Class IRI="#Tumore"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#vitalStatus"/>
+        <Class IRI="#Paziente"/>
     </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="#area_worst"/>
-        <Datatype abbreviatedIRI="xsd:decimal"/>
+        <DataProperty IRI="#ageAtDiagnosis"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cancerType"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cancerTypeDetailed"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#diseaseFreeEvent"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#diseaseFreeMonths"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#erPctPrimary"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#erStatusOfPrimary"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#erStatusOfSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2FISHRatioPrimary"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2FISHRatioSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2FISHStatusPrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2FISHStatusSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2IHCScorePrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2IHCScoreSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2IHCStatusPrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2IHCStatusSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#her2PrimaryStatus"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hrStatusOfPrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hrStatusOfSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#lastCommunicationContact"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#mStage"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#menopausalStatusAtDiagnosis"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#metastaticDiseaseAtLastFollowUp"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#metastaticRecurrenceTime"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#mutationCount"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#nStage"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ngsSampleCollectionPeriod"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#numberOfSamplesPerPatient"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#oncotreeCode"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallHER2Status"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallPatientHER2Status"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallPatientHRStatus"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallPatientReceptorStatus"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallSurvivalMonths"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#overallSurvivalStatus"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#patientID"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#prPctPrimary"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#prStatusOfPrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#prStatusOfSequencedSample"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#primaryNuclearGrade"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#primaryTumorLaterality"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#priorBreastPrimary"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#priorLocalRecurrence"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#receptorStatusPrimary"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#sampleId"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#sampleType"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#sex"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#siteOfSample"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#stageAtDiagnosis"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#studyID"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tStage"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#timeToDeathMonths"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#timeToDiagnosis"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tmbNonsynonymous"/>
+        <Datatype abbreviatedIRI="xsd:float"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tumorGrade"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tumorSampleHistology"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#tumorTissueOrigin"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#vitalStatus"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>S2</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Paziente"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#ageAtDiagnosis"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/a"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThanOrEqual">
+                <Variable IRI="/a"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">45</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#mutationCount"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/m"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThan">
+                <Variable IRI="/m"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorBreastPrimary"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorLocalRecurrence"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal>
+            </DataPropertyAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#vitalStatus"/>
+                <Variable IRI="/p"/>
+                <Literal>Alive</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#AltaProbabilitaSopravvivenza"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>S3</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Paziente"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#ageAtDiagnosis"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/a"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/a"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">50</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#mutationCount"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/m"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/m"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorBreastPrimary"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#BassaProbabilitaSopravvivenza"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>S1</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Paziente"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#ageAtDiagnosis"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/a"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThanOrEqual">
+                <Variable IRI="/a"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">50</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#mutationCount"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/m"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/m"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorBreastPrimary"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#PazienteAltoRischioRecidiva"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>S4</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Paziente"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#ageAtDiagnosis"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/a"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/a"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">50</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#mutationCount"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/m"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/m"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorLocalRecurrence"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#BassaProbabilitaSopravvivenza"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
+    <DLSafeRule>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
+            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+            <Literal></Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+            <Literal>S5</Literal>
+        </Annotation>
+        <Body>
+            <ClassAtom>
+                <Class IRI="#Paziente"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#ageAtDiagnosis"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/a"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:lessThanOrEqual">
+                <Variable IRI="/a"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">50</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#mutationCount"/>
+                <Variable IRI="/p"/>
+                <Variable IRI="/m"/>
+            </DataPropertyAtom>
+            <BuiltInAtom abbreviatedIRI="swrlb:greaterThanOrEqual">
+                <Variable IRI="/m"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+            </BuiltInAtom>
+            <DataPropertyAtom>
+                <DataProperty IRI="#priorLocalRecurrence"/>
+                <Variable IRI="/p"/>
+                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+            </DataPropertyAtom>
+        </Body>
+        <Head>
+            <ClassAtom>
+                <Class IRI="#PazienteAltoRischioRecidiva"/>
+                <Variable IRI="/p"/>
+            </ClassAtom>
+        </Head>
+    </DLSafeRule>
 </Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
