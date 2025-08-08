@@ -307,6 +307,18 @@
     <Declaration>
         <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
     </Declaration>
+    <SubClassOf>
+        <Class IRI="#AltaProbabilitaSopravvivenza"/>
+        <Class IRI="#Sopravvivenza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BassaProbabilitaSopravvivenza"/>
+        <Class IRI="#Sopravvivenza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PazienteAltoRischioRecidiva"/>
+        <Class IRI="#Paziente"/>
+    </SubClassOf>
     <ClassAssertion>
         <Class IRI="#Diagnosi"/>
         <NamedIndividual IRI="#Diag_0000004"/>
@@ -368,11 +380,19 @@
         <NamedIndividual IRI="#P-0000158"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
+        <NamedIndividual IRI="#P-0000158"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="#BassaProbabilitaSopravvivenza"/>
         <NamedIndividual IRI="#P-0000806"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#Paziente"/>
+        <NamedIndividual IRI="#P-0000806"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sopravvivenza"/>
         <NamedIndividual IRI="#P-0000806"/>
     </ClassAssertion>
     <ClassAssertion>
