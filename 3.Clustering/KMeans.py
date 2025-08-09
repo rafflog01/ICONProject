@@ -117,7 +117,7 @@ plt.xlabel('Number of clusters (K)')
 plt.ylabel('WCSS')
 plt.show()
 
-# Addestramento finale (esempio con K=2)
+# Addestramento finale
 kmeans_final = KMeans(n_clusters=2, n_init=10, random_state=42)
 kmeans_final.fit(X_pca)
 
