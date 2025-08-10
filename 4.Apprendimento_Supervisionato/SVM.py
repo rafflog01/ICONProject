@@ -36,7 +36,7 @@ FAST_MODE = True  # True = ricerca più veloce; False = più approfondita
 RECALL_MIN = 0.70  # banda recall: minimo
 RECALL_MAX = 0.75  # banda recall: massimo
 
-# 1) Caricamento dataset
+# Caricamento dataset
 
 try:
     dataset = pd.read_csv("breast_msk_2018_clinical_data.csv")
@@ -48,7 +48,7 @@ except FileNotFoundError:
 
 print(dataset.info())
 
-# 2) Target e features
+# Target e features
 
 y = dataset['Overall Survival Status'].str.upper().map({
     '0:LIVING': 0, '1:DECEASED': 1, 'ALIVE': 0, 'DEAD': 1
@@ -64,13 +64,13 @@ X = dataset.drop([
 categorical_cols = X.select_dtypes(include=['object']).columns.tolist()
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
-# 3) Train/Test split
+# Train/Test split
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.20, random_state=RANDOM_STATE, stratify=y
 )
 
-# 4) Pipeline + RandomizedSearchCV
+# Pipeline + RandomizedSearchCV
 
 pipe = Pipeline(steps=[
     ("imputer", SimpleImputer(strategy="median")),
@@ -140,7 +140,7 @@ for k in scoring.keys():
 
 best_model = search.best_estimator_
 
-# 5) Calibrazione (Platt/sigmoid)
+# Calibrazione (Platt/sigmoid)
 
 X_tr_sub, X_val, y_tr_sub, y_val = train_test_split(
     X_train, y_train, test_size=0.20, random_state=RANDOM_STATE, stratify=y_train
@@ -193,7 +193,7 @@ print(f"Soglia calibrata: {chosen_thr:.4f}")
 print(f"Precision (val): {chosen_prec:.4f} | Recall (val): {chosen_rec:.4f}")
 print(f"PR-AUC (validation, calibrata): {average_precision_score(y_val, val_probs):.4f}")
 
-# 6) Valutazione finale su TEST con modello calibrato
+# Valutazione finale su TEST con modello calibrato
 
 best_model.fit(X_train, y_train)
 calibrator_final = CalibratedClassifierCV(estimator=best_model, method='sigmoid', cv='prefit')
@@ -261,7 +261,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 
-# 7) Deviazione standard
+# Deviazione standard
 
 skf_full = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 cv_scores = cross_val_score(best_model, X, y, cv=skf_full, scoring='accuracy', n_jobs=-1)

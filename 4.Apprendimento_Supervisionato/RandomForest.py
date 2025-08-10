@@ -19,9 +19,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from inspect import signature
 
-# ===============================
-# 1) Caricamento del dataset
-# ===============================
+# Caricamento del dataset
 try:
     dataset = pd.read_csv("breast_msk_2018_clinical_data.csv")
 except FileNotFoundError:
@@ -35,9 +33,8 @@ except FileNotFoundError:
 
 print(dataset.info())
 
-# ===============================
-# 2) Target e features
-# ===============================
+# Target e features
+
 y = dataset['Overall Survival Status'].str.upper().map({
     '0:LIVING': 0, '1:DECEASED': 1, 'ALIVE': 0, 'DEAD': 1
 })
@@ -53,16 +50,14 @@ X = dataset.drop([
 categorical_cols = X.select_dtypes(include=['object']).columns
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
-# ===============================
-# 3) Split train/test (holdout)
-# ===============================
+# Split train/test (holdout)
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.20, random_state=42, shuffle=True, stratify=y
 )
 
-# ===============================
-# 4) Imputazione + SMOTE + (opz.) Scaling
-# ===============================
+# Imputazione + SMOTE + (opz.) Scaling
+
 imputer = SimpleImputer(strategy="median")
 X_train_imp = pd.DataFrame(imputer.fit_transform(X_train), columns=X.columns)
 X_test_imp = pd.DataFrame(imputer.transform(X_test), columns=X.columns)
@@ -76,9 +71,8 @@ scaler = StandardScaler()
 X_train_bal_scaled = scaler.fit_transform(X_train_bal)
 X_test_scaled = scaler.transform(X_test_imp)
 
-# ===============================
-# 5) Grid Search su Pipeline (scaler + RF)
-# ===============================
+# Grid Search su Pipeline
+
 pipe = Pipeline([
     ('scaler', StandardScaler()),  # non strettamente necessario per RF
     ('rf', RandomForestClassifier(random_state=42))
@@ -98,9 +92,7 @@ grid.fit(X_train_bal_scaled, y_train_bal)
 print("Migliori iperparametri trovati:", grid.best_params_)
 print(f"Accuracy media in cross-validation (GridSearchCV): {grid.best_score_:.4f}")
 
-# ===============================
-# 6) Valutazione sul test set con il miglior modello
-# ===============================
+# Valutazione sul test set con il miglior modello
 best_rf = grid.best_estimator_
 
 prediction = best_rf.predict(X_test_scaled)
@@ -148,10 +140,8 @@ plt.ylabel('TP RATE')
 plt.title('ROC Curve - Test')
 plt.show()
 
-# ===============================
-# 7) 5-fold CV senza leakage con metriche per fold
-#    (imputazione, SMOTE e scaling rifatti in ogni fold)
-# ===============================
+# 5-fold CV senza leakage con metriche per fold
+
 print("\n=== 5-fold CV senza leakage: metriche per fold ===")
 
 # Prendiamo gli iperparametri migliori del classificatore RF
@@ -164,11 +154,11 @@ acc_folds, f1_folds, roc_folds, ap_folds = [], [], [], []
 fold_idx = 1
 
 for tr_idx, val_idx in cv.split(X, y):
-    # Split grezzo (dopo OHE già effettuato su X completo)
+    # Split grezzo
     X_tr_raw, X_val_raw = X.iloc[tr_idx], X.iloc[val_idx]
     y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
 
-    # Imputazione (fit sul train; transform su val)
+    # Imputazione
     imputer_cv = SimpleImputer(strategy="median")
     X_tr_imp = imputer_cv.fit_transform(X_tr_raw)
     X_val_imp = imputer_cv.transform(X_val_raw)
@@ -177,12 +167,12 @@ for tr_idx, val_idx in cv.split(X, y):
     smote_cv = SMOTE(random_state=42)
     X_tr_bal, y_tr_bal = smote_cv.fit_resample(X_tr_imp, y_tr)
 
-    # Scaling (fit sul train bilanciato; applica a val)
+    # Scaling
     scaler_cv = StandardScaler()
     X_tr_bal_scaled = scaler_cv.fit_transform(X_tr_bal)
     X_val_scaled = scaler_cv.transform(X_val_imp)
 
-    # Modello RF con i migliori iperparametri (random_state impostato qui)
+    # Modello RF con i migliori iperparametri
     rf_fold = RandomForestClassifier(random_state=42, **best_rf_params)
     rf_fold.fit(X_tr_bal_scaled, y_tr_bal)
 
@@ -196,7 +186,7 @@ for tr_idx, val_idx in cv.split(X, y):
     try:
         roc = roc_auc_score(y_val, probs_fold)
     except ValueError:
-        roc = np.nan  # raro caso di una sola classe in val
+        roc = np.nan
     ap = average_precision_score(y_val, probs_fold)
 
     acc_folds.append(acc)
@@ -207,10 +197,12 @@ for tr_idx, val_idx in cv.split(X, y):
     print(f"[Fold {fold_idx}] Acc={acc:.4f} | F1={f1v:.4f} | ROC-AUC={roc:.4f} | AP={ap:.4f}")
     fold_idx += 1
 
-# Riepilogo CV (nan-safe per ROC-AUC)
+
+# Riepilogo CV
 def _summ(arr):
     arr = np.array(arr, dtype=float)
     return arr, np.nanmean(arr), np.nanstd(arr)
+
 
 acc_arr, acc_mean, acc_std = _summ(acc_folds)
 f1_arr, f1_mean, f1_std = _summ(f1_folds)
@@ -225,19 +217,21 @@ print(f"Average Precision: {np.round(ap_arr, 4)} | mean={ap_mean:.4f} | std={ap_
 
 # Tabella per documentazione
 tabella = pd.DataFrame([
-    {"metrica": "accuracy", "fold_1": acc_arr[0], "fold_2": acc_arr[1], "fold_3": acc_arr[2], "fold_4": acc_arr[3], "fold_5": acc_arr[4], "media": acc_mean, "std": acc_std},
-    {"metrica": "f1",       "fold_1": f1_arr[0],  "fold_2": f1_arr[1],  "fold_3": f1_arr[2],  "fold_4": f1_arr[3],  "fold_5": f1_arr[4],  "media": f1_mean,  "std": f1_std},
-    {"metrica": "roc_auc",  "fold_1": roc_arr[0], "fold_2": roc_arr[1], "fold_3": roc_arr[2], "fold_4": roc_arr[3], "fold_5": roc_arr[4], "media": roc_mean, "std": roc_std},
-    {"metrica": "avg_prec", "fold_1": ap_arr[0],  "fold_2": ap_arr[1],  "fold_3": ap_arr[2],  "fold_4": ap_arr[3],  "fold_5": ap_arr[4],  "media": ap_mean,  "std": ap_std},
-], columns=["metrica","fold_1","fold_2","fold_3","fold_4","fold_5","media","std"])
+    {"metrica": "accuracy", "fold_1": acc_arr[0], "fold_2": acc_arr[1], "fold_3": acc_arr[2], "fold_4": acc_arr[3],
+     "fold_5": acc_arr[4], "media": acc_mean, "std": acc_std},
+    {"metrica": "f1", "fold_1": f1_arr[0], "fold_2": f1_arr[1], "fold_3": f1_arr[2], "fold_4": f1_arr[3],
+     "fold_5": f1_arr[4], "media": f1_mean, "std": f1_std},
+    {"metrica": "roc_auc", "fold_1": roc_arr[0], "fold_2": roc_arr[1], "fold_3": roc_arr[2], "fold_4": roc_arr[3],
+     "fold_5": roc_arr[4], "media": roc_mean, "std": roc_std},
+    {"metrica": "avg_prec", "fold_1": ap_arr[0], "fold_2": ap_arr[1], "fold_3": ap_arr[2], "fold_4": ap_arr[3],
+     "fold_5": ap_arr[4], "media": ap_mean, "std": ap_std},
+], columns=["metrica", "fold_1", "fold_2", "fold_3", "fold_4", "fold_5", "media", "std"])
 
 print("\nTabella riassuntiva (da copiare in documentazione):")
 print(tabella.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
-# tabella.to_csv("cv_metrics_randomforest.csv", index=False)  # opzionale
 
-# ===============================
 # Grafico varianza e deviazione standard (accuracy su 5 fold)
-# ===============================
+
 var_acc = np.nanvar(acc_arr)
 std_acc = np.nanstd(acc_arr)
 
@@ -248,4 +242,3 @@ for i, v in enumerate([var_acc, std_acc]):
 ax.set_title('Stabilità CV (accuracy) – varianza e std')
 plt.tight_layout()
 plt.show()
-
