@@ -1,4 +1,7 @@
-# Python
+"""
+@autore: Raffaele Loglisci
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -24,19 +27,17 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split, StratifiedKFold, RandomizedSearchCV, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from sklearn.base import clone  # per la CV per-fold della pipeline migliore
+from sklearn.base import clone
 
-# ===============================
-# Config (nessun salvataggio su disco)
-# ===============================
+# Config
+
 RANDOM_STATE = 42
 FAST_MODE = True  # True = ricerca più veloce; False = più approfondita
 RECALL_MIN = 0.70  # banda recall: minimo
 RECALL_MAX = 0.75  # banda recall: massimo
 
-# ===============================
 # 1) Caricamento dataset
-# ===============================
+
 try:
     dataset = pd.read_csv("breast_msk_2018_clinical_data.csv")
 except FileNotFoundError:
@@ -47,9 +48,8 @@ except FileNotFoundError:
 
 print(dataset.info())
 
-# ===============================
 # 2) Target e features
-# ===============================
+
 y = dataset['Overall Survival Status'].str.upper().map({
     '0:LIVING': 0, '1:DECEASED': 1, 'ALIVE': 0, 'DEAD': 1
 })
@@ -64,20 +64,18 @@ X = dataset.drop([
 categorical_cols = X.select_dtypes(include=['object']).columns.tolist()
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
-# ===============================
 # 3) Train/Test split
-# ===============================
+
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.20, random_state=RANDOM_STATE, stratify=y
 )
 
-# ===============================
 # 4) Pipeline + RandomizedSearchCV
-# ===============================
+
 pipe = Pipeline(steps=[
     ("imputer", SimpleImputer(strategy="median")),
     ("var", VarianceThreshold(threshold=0.0)),
-    ("sampler", SMOTE(random_state=RANDOM_STATE)),  # placeholder, sostituito via search
+    ("sampler", SMOTE(random_state=RANDOM_STATE)),
     ("scaler", StandardScaler(with_mean=False)),
     ("pca", PCA(random_state=RANDOM_STATE)),
     ("svc", SVC(kernel="rbf", probability=False, class_weight="balanced", random_state=RANDOM_STATE))
@@ -124,7 +122,7 @@ search = RandomizedSearchCV(
     param_distributions=param_distributions,
     n_iter=n_iter,
     scoring=scoring,
-    refit="average_precision",  # ottimizza PR-AUC
+    refit="average_precision",
     cv=cv,
     n_jobs=-1,
     verbose=2,
@@ -142,9 +140,8 @@ for k in scoring.keys():
 
 best_model = search.best_estimator_
 
-# ===============================
 # 5) Calibrazione (Platt/sigmoid)
-# ===============================
+
 X_tr_sub, X_val, y_tr_sub, y_val = train_test_split(
     X_train, y_train, test_size=0.20, random_state=RANDOM_STATE, stratify=y_train
 )
@@ -160,14 +157,14 @@ calibrator.fit(X_val, y_val)
 val_probs = calibrator.predict_proba(X_val)[:, 1]
 
 # Curva PR e soglie
-prec, rec, thr = precision_recall_curve(y_val, val_probs)  # thr ha len = len(prec)-1 = len(rec)-1
+prec, rec, thr = precision_recall_curve(y_val, val_probs)
 
 # Indici in banda di recall
-rec_in_thr = rec[1:]  # recall allineato con thr
+rec_in_thr = rec[1:]
 idx_band = np.where((rec_in_thr >= RECALL_MIN) & (rec_in_thr <= RECALL_MAX))[0]
 
 if len(idx_band) > 0:
-    band_prec = prec[idx_band + 1]  # precision allineata a thr
+    band_prec = prec[idx_band + 1]
     best_idx = idx_band[int(np.argmax(band_prec))]
     chosen_thr = thr[best_idx]
     chosen_prec = prec[best_idx + 1]
@@ -196,9 +193,8 @@ print(f"Soglia calibrata: {chosen_thr:.4f}")
 print(f"Precision (val): {chosen_prec:.4f} | Recall (val): {chosen_rec:.4f}")
 print(f"PR-AUC (validation, calibrata): {average_precision_score(y_val, val_probs):.4f}")
 
-# ===============================
-# 6) Valutazione finale su TEST con modello calibrato + soglia robusta
-# ===============================
+# 6) Valutazione finale su TEST con modello calibrato
+
 best_model.fit(X_train, y_train)
 calibrator_final = CalibratedClassifierCV(estimator=best_model, method='sigmoid', cv='prefit')
 calibrator_final.fit(X_val, y_val)
@@ -237,7 +233,7 @@ plt.xlabel('Predetto')
 plt.tight_layout()
 plt.show()
 
-# Curva PR (test) e punto operativo
+# Curva PR
 prec_t, rec_t, thr_t = precision_recall_curve(y_test, test_probs)
 plt.figure(figsize=(6, 5))
 plt.step(rec_t, prec_t, where='post', color='b', alpha=0.8, label='PR (calibrata)')
@@ -252,7 +248,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 
-# Curva ROC (test)
+# Curva ROC
 fpr, tpr, _ = roc_curve(y_test, test_probs)
 plt.figure(figsize=(6, 5))
 plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
@@ -265,9 +261,8 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 
-# ===============================
-# 7) Deviazione standard via CV rapida (accuracy) sulla pipeline migliore
-# ===============================
+# 7) Deviazione standard
+
 skf_full = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 cv_scores = cross_val_score(best_model, X, y, cv=skf_full, scoring='accuracy', n_jobs=-1)
 print("\n[CV STRATIFICATA - tutto il dataset] ")
@@ -282,9 +277,6 @@ for i, v in enumerate([np.var(cv_scores), np.std(cv_scores)]):
 plt.tight_layout()
 plt.show()
 
-# ===============================
-# 8) 5-fold CV senza leakage per-fold con metriche complete
-# ===============================
 print("\n=== 5-fold CV senza leakage (Pipeline migliore): metriche per fold ===")
 
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
@@ -295,10 +287,10 @@ for tr_idx, val_idx in cv.split(X, y):
     X_tr, X_val = X.iloc[tr_idx], X.iloc[val_idx]
     y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
 
-    # Clona la Pipeline migliore (imputer, var-threshold, sampler, scaler, pca, svc)
+    # Clona la Pipeline migliore
     model_fold = clone(best_model)
 
-    # Fit SOLO sul train della fold (tutti i passi della pipeline rifatti per fold)
+    # Fit SOLO sul train della fold
     model_fold.fit(X_tr, y_tr)
 
     # Predizioni classi e punteggi continui
@@ -312,7 +304,7 @@ for tr_idx, val_idx in cv.split(X, y):
     elif hasattr(model_fold, "predict_proba"):
         scores = model_fold.predict_proba(X_val)[:, 1]
     else:
-        scores = y_pred  # fallback
+        scores = y_pred
 
     # Metriche per fold
     acc = accuracy_score(y_val, y_pred)
@@ -363,7 +355,6 @@ tabella = pd.DataFrame([
 
 print("\nTabella riassuntiva (da copiare in documentazione):")
 print(tabella.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
-# tabella.to_csv("cv_metrics_svm.csv", index=False)  # opzionale
 
 # Grafico varianza e deviazione standard (accuracy su 5 fold)
 var_acc = np.nanvar(acc_arr)
