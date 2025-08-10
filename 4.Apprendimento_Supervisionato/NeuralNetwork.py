@@ -27,9 +27,8 @@ from imblearn.over_sampling import SMOTE
 
 K.clear_session()
 
-# ===============================
-# 1) Caricamento del dataset
-# ===============================
+# Caricamento del dataset
+
 try:
     dataset = pd.read_csv("../2.Ontologia/breast_msk_2018_clinical_data.csv")
 except FileNotFoundError:
@@ -40,9 +39,8 @@ except FileNotFoundError:
 
 print(dataset.info())
 
-# ===============================
-# 2) Selezione X e y
-# ===============================
+
+# Selezione X e y
 y = dataset['Overall Survival Status'].str.upper().map({
     '0:LIVING': 0, '1:DECEASED': 1, 'ALIVE': 0, 'DEAD': 1
 })
@@ -58,16 +56,13 @@ X = dataset.drop([
 categorical_cols = X.select_dtypes(include=['object']).columns
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
-# ===============================
-# 3) Split train/test (holdout)
-# ===============================
+# Split train/test
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, shuffle=True, stratify=y
 )
 
-# ===============================
-# 4) Imputazione + SMOTE + Scaling sul train (no leakage)
-# ===============================
+# Imputazione
+
 imputer = SimpleImputer(strategy="median")
 X_train_imp = pd.DataFrame(imputer.fit_transform(X_train), columns=X.columns)
 X_test_imp = pd.DataFrame(imputer.transform(X_test), columns=X.columns)
@@ -83,9 +78,7 @@ X_test_scaled = scaler.transform(X_test_imp)
 X_train_bal_scaled = pd.DataFrame(X_train_bal_scaled, columns=X.columns)
 X_test_scaled = pd.DataFrame(X_test_scaled, columns=X.columns)
 
-# ===============================
-# 5) Funzione di utilità: distribuzione classi
-# ===============================
+# Funzione di utilità: distribuzione classi
 def plot_class_balance(y_series, title="Distribuzione classi dopo SMOTE"):
     contatore = pd.Series(y_series).value_counts().sort_index()
     percentuali = contatore / contatore.sum() * 100
@@ -107,9 +100,8 @@ def plot_class_balance(y_series, title="Distribuzione classi dopo SMOTE"):
 
 plot_class_balance(y_train_bal)
 
-# ===============================
-# 6) Definizione del modello Keras
-# ===============================
+# Definizione del modello Keras
+
 def create_model(neurons=64, activation='relu', optimizer='adam', input_dim=None):
     model = keras.Sequential([
         keras.layers.Input(shape=(input_dim,)),
@@ -122,9 +114,7 @@ def create_model(neurons=64, activation='relu', optimizer='adam', input_dim=None
 # Istanziamento per training su holdout
 model = create_model(input_dim=X_train_bal_scaled.shape[1])
 
-# ===============================
-# 7) Training su holdout e valutazione
-# ===============================
+# Training su holdout e valutazione
 model.fit(
     X_train_bal_scaled,
     y_train_bal,
@@ -185,9 +175,8 @@ plt.show()
 
 print(f'F1 (test): {f1_score(y_test, y_pred):.4f}')
 
-# ===============================
-# 8) 5-fold CV senza leakage con metriche per fold
-# ===============================
+# 5-fold CV senza leakage con metriche per fold
+
 print("\n=== 5-fold CV senza leakage: metriche per fold ===")
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -195,20 +184,20 @@ acc_folds, f1_folds, roc_folds, ap_folds = [], [], [], []
 fold_idx = 1
 
 for tr_idx, val_idx in cv.split(X, y):
-    # Split grezzo (dopo OHE già effettuato su X completo)
+    # Split grezzo
     X_tr_raw, X_val_raw = X.iloc[tr_idx], X.iloc[val_idx]
     y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
 
-    # Imputazione (fit sul train, transform su val)
+    # Imputazione
     imputer_cv = SimpleImputer(strategy="median")
     X_tr_imp = imputer_cv.fit_transform(X_tr_raw)
     X_val_imp = imputer_cv.transform(X_val_raw)
 
-    # SMOTE SOLO sul train (no leakage)
+    # SMOTE SOLO sul train
     smote_cv = SMOTE(random_state=42)
     X_tr_bal, y_tr_bal = smote_cv.fit_resample(X_tr_imp, y_tr)
 
-    # Scaling (fit sul train bilanciato, applica a val)
+    # Scaling
     scaler_cv = StandardScaler()
     X_tr_bal_scaled = scaler_cv.fit_transform(X_tr_bal)
     X_val_scaled = scaler_cv.transform(X_val_imp)
@@ -234,7 +223,7 @@ for tr_idx, val_idx in cv.split(X, y):
     try:
         roc = roc_auc_score(y_val, probs)
     except ValueError:
-        roc = np.nan  # nel raro caso di una sola classe in val
+        roc = np.nan
     ap = average_precision_score(y_val, probs)
 
     acc_folds.append(acc)

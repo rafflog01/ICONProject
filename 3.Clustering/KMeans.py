@@ -161,7 +161,7 @@ plt.show()
 outlier = dataset[kmeans_final.labels_ == 2]
 print(outlier)
 ari = adjusted_rand_score(dataset['Overall Survival Status'], dataset['cluster'])
-print('Adjusted Rand Index:', ari)  # Più è basso più cluster e classi "non coincidono"
+print('Adjusted Rand Index:', ari)
 
 # Statistiche descrittive per ogni cluster
 print(dataset.groupby('cluster').mean(numeric_only=True))
