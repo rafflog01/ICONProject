@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sn
+
 from imblearn.over_sampling import SMOTE, BorderlineSMOTE
 from imblearn.pipeline import Pipeline
 from sklearn.calibration import CalibratedClassifierCV
@@ -23,16 +24,19 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split, StratifiedKFold, RandomizedSearchCV, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from sklearn.base import clone  # per la CV per-fold della pipeline migliore
 
-# Config (niente salvataggi su disco)
-
+# ===============================
+# Config (nessun salvataggio su disco)
+# ===============================
 RANDOM_STATE = 42
-FAST_MODE = True  # True = ricerca più veloce; False = più approfondita (più lenta)
+FAST_MODE = True  # True = ricerca più veloce; False = più approfondita
 RECALL_MIN = 0.70  # banda recall: minimo
 RECALL_MAX = 0.75  # banda recall: massimo
 
+# ===============================
 # 1) Caricamento dataset
-
+# ===============================
 try:
     dataset = pd.read_csv("breast_msk_2018_clinical_data.csv")
 except FileNotFoundError:
@@ -43,8 +47,9 @@ except FileNotFoundError:
 
 print(dataset.info())
 
+# ===============================
 # 2) Target e features
-
+# ===============================
 y = dataset['Overall Survival Status'].str.upper().map({
     '0:LIVING': 0, '1:DECEASED': 1, 'ALIVE': 0, 'DEAD': 1
 })
@@ -59,14 +64,16 @@ X = dataset.drop([
 categorical_cols = X.select_dtypes(include=['object']).columns.tolist()
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
+# ===============================
 # 3) Train/Test split
-
+# ===============================
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.20, random_state=RANDOM_STATE, stratify=y
 )
 
+# ===============================
 # 4) Pipeline + RandomizedSearchCV
-
+# ===============================
 pipe = Pipeline(steps=[
     ("imputer", SimpleImputer(strategy="median")),
     ("var", VarianceThreshold(threshold=0.0)),
@@ -76,32 +83,32 @@ pipe = Pipeline(steps=[
     ("svc", SVC(kernel="rbf", probability=False, class_weight="balanced", random_state=RANDOM_STATE))
 ])
 
-if FAST_MODE:
-    param_distributions = {
-        "var__threshold": [0.0, 0.001],
-        "sampler": [
-            SMOTE(random_state=RANDOM_STATE),
-            BorderlineSMOTE(random_state=RANDOM_STATE)
-        ],
-        "pca__n_components": [None, 0.95],
-        "svc__C": [0.5, 1, 5, 10, 50, 100],
-        "svc__gamma": [1e-4, 5e-4, 1e-3, 5e-3, 1e-2]
-    }
-    n_iter = 30
-    cv_folds = 3
-else:
-    param_distributions = {
-        "var__threshold": [0.0, 0.0005, 0.001, 0.01],
-        "sampler": [
-            SMOTE(random_state=RANDOM_STATE),
-            BorderlineSMOTE(random_state=RANDOM_STATE)
-        ],
-        "pca__n_components": [None, 0.99, 0.95],
-        "svc__C": [0.1, 0.5, 1, 5, 10, 50, 100, 200, 500],
-        "svc__gamma": [1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 5e-3, 1e-2, 1e-1]
-    }
-    n_iter = 60
-    cv_folds = 5
+# if FAST_MODE:
+#     param_distributions = {
+#         "var__threshold": [0.0, 0.001],
+#         "sampler": [
+#             SMOTE(random_state=RANDOM_STATE),
+#             BorderlineSMOTE(random_state=RANDOM_STATE)
+#         ],
+#         "pca__n_components": [None, 0.95],
+#         "svc__C": [0.5, 1, 5, 10, 50, 100],
+#         "svc__gamma": [1e-4, 5e-4, 1e-3, 5e-3, 1e-2]
+#     }
+#     n_iter = 30
+#     cv_folds = 3
+# else:
+param_distributions = {
+    "var__threshold": [0.0, 0.0005, 0.001, 0.01],
+    "sampler": [
+        SMOTE(random_state=RANDOM_STATE),
+        BorderlineSMOTE(random_state=RANDOM_STATE)
+    ],
+    "pca__n_components": [None, 0.99, 0.95],
+    "svc__C": [0.1, 0.5, 1, 5, 10, 50, 100, 200, 500],
+    "svc__gamma": [1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 5e-3, 1e-2, 1e-1]
+}
+n_iter = 60
+cv_folds = 5
 
 cv = StratifiedKFold(n_splits=cv_folds, shuffle=True, random_state=RANDOM_STATE)
 scoring = {
@@ -135,8 +142,9 @@ for k in scoring.keys():
 
 best_model = search.best_estimator_
 
+# ===============================
 # 5) Calibrazione (Platt/sigmoid)
-
+# ===============================
 X_tr_sub, X_val, y_tr_sub, y_val = train_test_split(
     X_train, y_train, test_size=0.20, random_state=RANDOM_STATE, stratify=y_train
 )
@@ -188,8 +196,9 @@ print(f"Soglia calibrata: {chosen_thr:.4f}")
 print(f"Precision (val): {chosen_prec:.4f} | Recall (val): {chosen_rec:.4f}")
 print(f"PR-AUC (validation, calibrata): {average_precision_score(y_val, val_probs):.4f}")
 
+# ===============================
 # 6) Valutazione finale su TEST con modello calibrato + soglia robusta
-
+# ===============================
 best_model.fit(X_train, y_train)
 calibrator_final = CalibratedClassifierCV(estimator=best_model, method='sigmoid', cv='prefit')
 calibrator_final.fit(X_val, y_val)
@@ -205,7 +214,7 @@ roc = roc_auc_score(y_test, test_probs)
 ap = average_precision_score(y_test, test_probs)
 cm = confusion_matrix(y_test, test_pred)
 
-print("\n=== TEST @ soglia robusta (calibrata) – senza salvataggi ===")
+print("\n=== TEST @ soglia robusta (calibrata) ===")
 print(f"Accuracy: {acc:.4f}")
 print(f"Balanced Accuracy: {bacc:.4f}")
 print(f"F1 (binary): {f1_bin:.4f}")
@@ -229,7 +238,6 @@ plt.tight_layout()
 plt.show()
 
 # Curva PR (test) e punto operativo
-
 prec_t, rec_t, thr_t = precision_recall_curve(y_test, test_probs)
 plt.figure(figsize=(6, 5))
 plt.step(rec_t, prec_t, where='post', color='b', alpha=0.8, label='PR (calibrata)')
@@ -244,8 +252,7 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 
-# 8) Curva ROC (test)
-
+# Curva ROC (test)
 fpr, tpr, _ = roc_curve(y_test, test_probs)
 plt.figure(figsize=(6, 5))
 plt.plot([0, 1], [0, 1], linestyle='--', color='gray')
@@ -258,21 +265,114 @@ plt.grid(True, linestyle='--', alpha=0.5)
 plt.tight_layout()
 plt.show()
 
-# 9) Deviazione standard via CV
-
+# ===============================
+# 7) Deviazione standard via CV rapida (accuracy) sulla pipeline migliore
+# ===============================
 skf_full = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
-# Usiamo l'estimatore "best_model" (pipeline completa) per evitare leakage; metrica: accuracy
 cv_scores = cross_val_score(best_model, X, y, cv=skf_full, scoring='accuracy', n_jobs=-1)
 print("\n[CV STRATIFICATA - tutto il dataset] ")
 print(f"Media accuracy: {np.mean(cv_scores):.4f}")
 print(f"Deviazione standard: {np.std(cv_scores):.4f}")
 print(f"Varianza: {np.var(cv_scores):.4f}")
 
-# Grafico semplice varianza/dev std
 fig, ax = plt.subplots(1, 1, figsize=(6, 3), sharey=True)
 ax.bar(['variance', 'std dev'], [np.var(cv_scores), np.std(cv_scores)], color=['#5DA5DA', '#60BD68'])
 for i, v in enumerate([np.var(cv_scores), np.std(cv_scores)]):
     ax.text(i, v + max(1e-3, v) * 0.02, f"{v:.4f}", ha='center', va='bottom', fontsize=10)
-ax.set_title('Stabilità CV (accuracy)')
+plt.tight_layout()
+plt.show()
+
+# ===============================
+# 8) 5-fold CV senza leakage per-fold con metriche complete
+# ===============================
+print("\n=== 5-fold CV senza leakage (Pipeline migliore): metriche per fold ===")
+
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
+acc_folds, f1_folds, roc_folds, ap_folds = [], [], [], []
+fold_idx = 1
+
+for tr_idx, val_idx in cv.split(X, y):
+    X_tr, X_val = X.iloc[tr_idx], X.iloc[val_idx]
+    y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
+
+    # Clona la Pipeline migliore (imputer, var-threshold, sampler, scaler, pca, svc)
+    model_fold = clone(best_model)
+
+    # Fit SOLO sul train della fold (tutti i passi della pipeline rifatti per fold)
+    model_fold.fit(X_tr, y_tr)
+
+    # Predizioni classi e punteggi continui
+    y_pred = model_fold.predict(X_val)
+
+    # ROC-AUC / AP: decision_function se disponibile, altrimenti predict_proba
+    if hasattr(model_fold, "decision_function"):
+        scores = model_fold.decision_function(X_val)
+        if isinstance(scores, np.ndarray) and scores.ndim > 1 and scores.shape[1] > 1:
+            scores = scores[:, 1]
+    elif hasattr(model_fold, "predict_proba"):
+        scores = model_fold.predict_proba(X_val)[:, 1]
+    else:
+        scores = y_pred  # fallback
+
+    # Metriche per fold
+    acc = accuracy_score(y_val, y_pred)
+    f1v = f1_score(y_val, y_pred)
+    try:
+        roc_fold = roc_auc_score(y_val, scores)
+    except ValueError:
+        roc_fold = np.nan
+    ap_fold = average_precision_score(y_val, scores)
+
+    acc_folds.append(acc)
+    f1_folds.append(f1v)
+    roc_folds.append(roc_fold)
+    ap_folds.append(ap_fold)
+
+    print(f"[Fold {fold_idx}] Acc={acc:.4f} | F1={f1v:.4f} | ROC-AUC={roc_fold:.4f} | AP={ap_fold:.4f}")
+    fold_idx += 1
+
+
+# Riepilogo per-fold
+def _summ(arr):
+    arr = np.array(arr, dtype=float)
+    return arr, np.nanmean(arr), np.nanstd(arr)
+
+
+acc_arr, acc_mean, acc_std = _summ(acc_folds)
+f1_arr, f1_mean, f1_std = _summ(f1_folds)
+roc_arr, roc_mean, roc_std = _summ(roc_folds)
+ap_arr, ap_mean, ap_std = _summ(ap_folds)
+
+print("\n=== Riepilogo 5-fold (valori per fold + media/std) ===")
+print(f"Accuracy:          {np.round(acc_arr, 4)} | mean={acc_mean:.4f} | std={acc_std:.4f}")
+print(f"F1:                {np.round(f1_arr, 4)}  | mean={f1_mean:.4f}  | std={f1_std:.4f}")
+print(f"ROC-AUC:           {np.round(roc_arr, 4)} | mean={roc_mean:.4f} | std={roc_std:.4f}")
+print(f"Average Precision: {np.round(ap_arr, 4)}  | mean={ap_mean:.4f}  | std={ap_std:.4f}")
+
+# Tabella per documentazione
+tabella = pd.DataFrame([
+    {"metrica": "accuracy", "fold_1": acc_arr[0], "fold_2": acc_arr[1], "fold_3": acc_arr[2], "fold_4": acc_arr[3],
+     "fold_5": acc_arr[4], "media": acc_mean, "std": acc_std},
+    {"metrica": "f1", "fold_1": f1_arr[0], "fold_2": f1_arr[1], "fold_3": f1_arr[2], "fold_4": f1_arr[3],
+     "fold_5": f1_arr[4], "media": f1_mean, "std": f1_std},
+    {"metrica": "roc_auc", "fold_1": roc_arr[0], "fold_2": roc_arr[1], "fold_3": roc_arr[2], "fold_4": roc_arr[3],
+     "fold_5": roc_arr[4], "media": roc_mean, "std": roc_std},
+    {"metrica": "avg_prec", "fold_1": ap_arr[0], "fold_2": ap_arr[1], "fold_3": ap_arr[2], "fold_4": ap_arr[3],
+     "fold_5": ap_arr[4], "media": ap_mean, "std": ap_std},
+], columns=["metrica", "fold_1", "fold_2", "fold_3", "fold_4", "fold_5", "media", "std"])
+
+print("\nTabella riassuntiva (da copiare in documentazione):")
+print(tabella.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
+# tabella.to_csv("cv_metrics_svm.csv", index=False)  # opzionale
+
+# Grafico varianza e deviazione standard (accuracy su 5 fold)
+var_acc = np.nanvar(acc_arr)
+std_acc = np.nanstd(acc_arr)
+
+fig, ax = plt.subplots(1, 1, figsize=(6, 3), sharey=True)
+ax.bar(['variance', 'std dev'], [var_acc, std_acc], color=['#5DA5DA', '#60BD68'])
+for i, v in enumerate([var_acc, std_acc]):
+    ax.text(i, v + max(1e-3, v) * 0.02, f"{v:.4f}", ha='center', va='bottom', fontsize=10)
+ax.set_title('Stabilità CV (accuracy) – varianza e std')
 plt.tight_layout()
 plt.show()
