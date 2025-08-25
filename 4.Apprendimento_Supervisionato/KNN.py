@@ -1,3 +1,7 @@
+"""
+@autore: Raffaele Loglisci
+"""
+
 import numpy as np
 import pandas as pd
 import seaborn as sn
@@ -12,10 +16,10 @@ from sklearn.metrics import (
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.base import clone
 
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline as ImbPipeline
+from inspect import signature
 
 # Caricamento dataset
 try:
@@ -40,7 +44,7 @@ discard_cols = [
 keep_cols = [c for c in dataset.columns if c not in discard_cols]
 dataset = dataset[keep_cols]
 
-# Label e features
+# Label e features (target invariato)
 if "Patient's Vital Status" not in dataset.columns:
     raise ValueError("Colonna 'Patient's Vital Status' mancante nel dataset!")
 
@@ -64,187 +68,182 @@ for col, mapping in categorical_columns_to_map.items():
 # Teniamo solo numeriche (le categoriche non mappate verranno ignorate)
 X = X.select_dtypes(include=['float64', 'int64'])
 
-# Train/Test split (stratificato)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.20, random_state=42, shuffle=True, stratify=y
-)
+# Repeated Holdout (outer) + 5-fold CV (inner)
+n_runs = 10
+test_size = 0.20
+seeds = list(range(42, 42 + n_runs))
+plot_each_run = True  # False per ridurre i grafici
 
-# Pipeline + GridSearchCV (tuning senza leakage)
+acc_list, f1_list, auc_list, ap_list = [], [], [], []
 
-pipe = ImbPipeline(steps=[
-    ("imputer", SimpleImputer(strategy="mean")),
-    ("smote", SMOTE(random_state=42)),
-    ("scaler", StandardScaler()),
-    ("knn", KNeighborsClassifier())
-])
 
+# Pipeline per il tuning interno (imputazione + SMOTE + scaling + KNN)
+def make_pipeline(seed):
+    return ImbPipeline(steps=[
+        ("imputer", SimpleImputer(strategy="mean")),
+        ("smote", SMOTE(random_state=seed)),
+        ("scaler", StandardScaler()),
+        ("knn", KNeighborsClassifier())
+    ])
+
+
+# Griglia iperparametri KNN (tuning nella inner CV)
 param_grid = {
-    "knn__n_neighbors": list(range(1, 21)),
+    "knn__n_neighbors": list(range(1, 26)),
     "knn__weights": ["uniform", "distance"],
     "knn__p": [1, 2],  # 1 = Manhattan, 2 = Euclidea
 }
 
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+for i, seed in enumerate(seeds, start=1):
+    # Outer split 80/20 (stratificato)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=seed, shuffle=True, stratify=y
+    )
 
-grid = GridSearchCV(
-    estimator=pipe,
-    param_grid=param_grid,
-    cv=cv,
-    scoring="accuracy",
-    n_jobs=-1,
-    refit=True,
-    return_train_score=True
-)
+    # Inner 5-fold CV sul SOLO training per tuning (no leakage)
+    cv_inner = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+    pipe = make_pipeline(seed)
 
-# Fit SOLO sul train
-grid.fit(X_train, y_train)
+    grid = GridSearchCV(
+        estimator=pipe,
+        param_grid=param_grid,
+        cv=cv_inner,
+        scoring="accuracy",
+        n_jobs=-1,
+        refit=True,
+        return_train_score=False
+    )
 
-print(f"\nMigliori iperparametri: {grid.best_params_}")
-print(f"Accuracy media in CV (GridSearchCV): {grid.best_score_:.4f}")
+    grid.fit(X_train, y_train)
+    best_model = grid.best_estimator_
+    best_params = grid.best_params_
+    best_cv_score = grid.best_score_
 
-# Valutazione finale sul test
+    # Valutazione sul test dell'outer split
+    y_pred = best_model.predict(X_test)
 
-best_model = grid.best_estimator_
-
-y_pred = best_model.predict(X_test)
-
-accuracy = accuracy_score(y_test, y_pred)
-print(f"\n[Test] Accuracy: {accuracy:.4f}")
-print("\nClassification Report (test):")
-print(classification_report(y_test, y_pred))
-
-# Matrice di confusione
-conf_matrix = confusion_matrix(y_test, y_pred)
-conf_matrix_percent = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:, np.newaxis] * 100
-plt.figure(figsize=(10, 7))
-sn.heatmap(
-    pd.DataFrame(conf_matrix_percent,
-                 index=['Deceased (0)', 'Alive (1)'],
-                 columns=['Pred Deceased (0)', 'Pred Alive (1)']),
-    annot=True, fmt='.2f', cmap='Oranges'
-)
-plt.title('Matrice di Confusione Normalizzata (%) - Test')
-plt.ylabel('Valore Reale')
-plt.xlabel('Predizione')
-plt.show()
-
-# Curve ROC e Precision-Recall
-
-if hasattr(best_model.named_steps['knn'], "predict_proba"):
-    probs = best_model.predict_proba(X_test)[:, 1]
-    fpr, tpr, _ = roc_curve(y_test, probs)
-    auc = roc_auc_score(y_test, probs)
-    print(f"\nAUC ROC (test): {auc:.3f}")
-
-    plt.figure()
-    plt.plot([0, 1], [0, 1], linestyle='--')
-    plt.plot(fpr, tpr, marker='.')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve - Test')
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.show()
-
-    average_precision = average_precision_score(y_test, probs)
-    precision, recall, _ = precision_recall_curve(y_test, probs)
-    plt.figure(figsize=(8, 6))
-    plt.step(recall, precision, color='red', alpha=0.2, where='post')
-    plt.fill_between(recall, precision, alpha=0.2, color='orange', step='post')
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.title(f'Precision-Recall curve (AP = {average_precision:.3f}) - Test')
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.show()
-
-# F1 finale
-
-f1 = f1_score(y_test, y_pred)
-print(f"\nF1 (test): {f1:.4f}")
-
-#  5-fold CV senza leakage
-
-print("\n=== 5-fold CV senza leakage (Pipeline migliore): metriche per fold ===")
-
-acc_folds, f1_folds, roc_folds, ap_folds = [], [], [], []
-fold_idx = 1
-cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
-
-for tr_idx, val_idx in cv.split(X, y):
-    X_tr, X_val = X.iloc[tr_idx], X.iloc[val_idx]
-    y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
-
-    # Clona la Pipeline migliore
-    model_fold = clone(best_model)
-
-    # Fit SOLO sul train della fold
-    model_fold.fit(X_tr, y_tr)
-
-    # Predizioni classi e probabilità
-    y_pred_fold = model_fold.predict(X_val)
-    if hasattr(model_fold, "predict_proba"):
-        scores = model_fold.predict_proba(X_val)[:, 1]
+    # Probabilità per ROC/PR
+    if hasattr(best_model.named_steps["knn"], "predict_proba"):
+        probs = best_model.predict_proba(X_test)[:, 1]
     else:
-        # fallback
-        scores = y_pred_fold
+        probs = y_pred
 
-    # Metriche per fold
-    acc = accuracy_score(y_val, y_pred_fold)
-    f1v = f1_score(y_val, y_pred_fold)
+    acc = accuracy_score(y_test, y_pred)
+    f1v = f1_score(y_test, y_pred)
     try:
-        roc = roc_auc_score(y_val, scores)
+        auc = roc_auc_score(y_test, probs)
     except ValueError:
-        roc = np.nan
-    ap = average_precision_score(y_val, scores)
+        auc = np.nan
+    ap = average_precision_score(y_test, probs)
 
-    acc_folds.append(acc)
-    f1_folds.append(f1v)
-    roc_folds.append(roc)
-    ap_folds.append(ap)
+    acc_list.append(acc)
+    f1_list.append(f1v)
+    auc_list.append(auc)
+    ap_list.append(ap)
 
-    print(f"[Fold {fold_idx}] Acc={acc:.4f} | F1={f1v:.4f} | ROC-AUC={roc:.4f} | AP={ap:.4f}")
-    fold_idx += 1
+    print(f"[Run {i}/{n_runs} - seed={seed}] "
+          f"CV(5-fold) best Acc={best_cv_score:.4f} | best_params={best_params} | "
+          f"Test Acc={acc:.4f} F1={f1v:.4f} AUC={auc:.4f} AP={ap:.4f}")
+
+    # Grafici
+    if plot_each_run:
+        # Matrice di confusione normalizzata
+        conf_matrix = confusion_matrix(y_test, y_pred)
+        conf_matrix_percent = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:, np.newaxis] * 100
+        plt.figure(figsize=(8, 6))
+        sn.heatmap(
+            pd.DataFrame(conf_matrix_percent,
+                         index=['Deceased (0)', 'Alive (1)'],
+                         columns=['Pred Deceased (0)', 'Pred Alive (1)']),
+            annot=True, fmt='.2f', cmap='Oranges'
+        )
+        plt.title(f'Matrice di Confusione Normalizzata (%) - Test (Run {i})')
+        plt.ylabel('Valore Reale')
+        plt.xlabel('Predizione')
+        plt.tight_layout()
+        plt.show()
+
+        # ROC Curve
+        if not np.isnan(auc):
+            fpr, tpr, _ = roc_curve(y_test, probs)
+            plt.figure(figsize=(6, 5))
+            plt.plot([0, 1], [0, 1], linestyle='--')
+            plt.plot(fpr, tpr, marker='.')
+            plt.xlabel('False Positive Rate')
+            plt.ylabel('True Positive Rate')
+            plt.title(f'ROC Curve - Test (Run {i}) | AUC={auc:.3f}')
+            plt.grid(True, linestyle='--', alpha=0.7)
+            plt.tight_layout()
+            plt.show()
+
+        # Precision-Recall Curve
+        precision, recall, _ = precision_recall_curve(y_test, probs)
+        step_kwargs = ({'step': 'post'} if 'step' in signature(plt.fill_between).parameters else {})
+        plt.figure(figsize=(8, 6))
+        plt.step(recall, precision, color='red', alpha=0.2, where='post')
+        plt.fill_between(recall, precision, alpha=0.2, color='orange', **step_kwargs)
+        plt.xlabel('Recall')
+        plt.ylabel('Precision')
+        plt.title(f'Precision-Recall curve (AP = {ap:.3f}) - Test (Run {i})')
+        plt.grid(True, linestyle='--', alpha=0.7)
+        plt.tight_layout()
+        plt.show()
 
 
-# Riepilogo per-fold
+# Riepilogo statistico (outer test)
 def _summ(arr):
     arr = np.array(arr, dtype=float)
-    return arr, np.nanmean(arr), np.nanstd(arr)
+    return np.nanmean(arr), np.nanstd(arr), np.nanvar(arr)
 
 
-acc_arr, acc_mean, acc_std = _summ(acc_folds)
-f1_arr, f1_mean, f1_std = _summ(f1_folds)
-roc_arr, roc_mean, roc_std = _summ(roc_folds)
-ap_arr, ap_mean, ap_std = _summ(ap_folds)
+acc_mean, acc_std, acc_var = _summ(acc_list)
+f1_mean, f1_std, f1_var = _summ(f1_list)
+auc_mean, auc_std, auc_var = _summ(auc_list)
+ap_mean, ap_std, ap_var = _summ(ap_list)
 
-print("\n=== Riepilogo 5-fold (valori per fold + media/std) ===")
-print(f"Accuracy:          {np.round(acc_arr, 4)} | mean={acc_mean:.4f} | std={acc_std:.4f}")
-print(f"F1:                {np.round(f1_arr, 4)}  | mean={f1_mean:.4f}  | std={f1_std:.4f}")
-print(f"ROC-AUC:           {np.round(roc_arr, 4)} | mean={roc_mean:.4f} | std={roc_std:.4f}")
-print(f"Average Precision: {np.round(ap_arr, 4)}  | mean={ap_mean:.4f}  | std={ap_std:.4f}")
+print("\n=== Riepilogo Repeated Holdout (outer test) con inner 5-fold CV ===")
+print(f"Accuracy:          mean={acc_mean:.4f} | std={acc_std:.4f} | var={acc_var:.6f}")
+print(f"F1:                mean={f1_mean:.4f} | std={f1_std:.4f} | var={f1_var:.6f}")
+print(f"ROC-AUC:           mean={auc_mean:.4f} | std={auc_std:.4f} | var={auc_var:.6f}")
+print(f"Average Precision: mean={ap_mean:.4f} | std={ap_std:.4f} | var={ap_var:.6f}")
 
-# Tabella per documentazione
+# Tabella riassuntiva (da copiare in documentazione)
 tabella = pd.DataFrame([
-    {"metrica": "accuracy", "fold_1": acc_arr[0], "fold_2": acc_arr[1], "fold_3": acc_arr[2], "fold_4": acc_arr[3],
-     "fold_5": acc_arr[4], "media": acc_mean, "std": acc_std},
-    {"metrica": "f1", "fold_1": f1_arr[0], "fold_2": f1_arr[1], "fold_3": f1_arr[2], "fold_4": f1_arr[3],
-     "fold_5": f1_arr[4], "media": f1_mean, "std": f1_std},
-    {"metrica": "roc_auc", "fold_1": roc_arr[0], "fold_2": roc_arr[1], "fold_3": roc_arr[2], "fold_4": roc_arr[3],
-     "fold_5": roc_arr[4], "media": roc_mean, "std": roc_std},
-    {"metrica": "avg_prec", "fold_1": ap_arr[0], "fold_2": ap_arr[1], "fold_3": ap_arr[2], "fold_4": ap_arr[3],
-     "fold_5": ap_arr[4], "media": ap_mean, "std": ap_std},
-], columns=["metrica", "fold_1", "fold_2", "fold_3", "fold_4", "fold_5", "media", "std"])
+    {"metrica": "accuracy", "mean": acc_mean, "std": acc_std, "var": acc_var},
+    {"metrica": "f1", "mean": f1_mean, "std": f1_std, "var": f1_var},
+    {"metrica": "roc_auc", "mean": auc_mean, "std": auc_std, "var": auc_var},
+    {"metrica": "avg_prec", "mean": ap_mean, "std": ap_std, "var": ap_var},
+], columns=["metrica", "mean", "std", "var"])
 
-print("\nTabella riassuntiva (da copiare in documentazione):")
+print("\nTabella riassuntiva (metriche su test, media/std/var):")
 print(tabella.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
 
-# Grafico varianza e deviazione standard (accuracy su 5 fold)
-var_acc = np.nanvar(acc_arr)
-std_acc = np.nanstd(acc_arr)
+# Grafici riepilogativi
+# Boxplot delle metriche su test
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+axes = axes.ravel()
 
+metrics_data = {
+    "Accuracy": acc_list,
+    "F1": f1_list,
+    "ROC-AUC": auc_list,
+    "Average Precision": ap_list
+}
+
+for ax, (name, values) in zip(axes, metrics_data.items()):
+    vals = [v for v in values if not (isinstance(v, float) and np.isnan(v))]
+    ax.boxplot(vals, vert=True, patch_artist=True, boxprops=dict(facecolor='#FF9F80'))
+    ax.set_title(f'{name} – distribuzione su {n_runs} run')
+    ax.set_ylabel(name)
+
+plt.tight_layout()
+plt.show()
+
+# Grafico varianza e deviazione standard (accuracy)
 fig, ax = plt.subplots(1, 1, figsize=(6, 3), sharey=True)
-ax.bar(['variance', 'std dev'], [var_acc, std_acc], color=['#5DA5DA', '#60BD68'])
-for i, v in enumerate([var_acc, std_acc]):
+ax.bar(['variance', 'std dev'], [acc_var, acc_std], color=['#5DA5DA', '#60BD68'])
+for i, v in enumerate([acc_var, acc_std]):
     ax.text(i, v + max(1e-3, v) * 0.02, f"{v:.4f}", ha='center', va='bottom', fontsize=10)
-ax.set_title('Stabilità CV (accuracy) – varianza e std')
+ax.set_title('Stabilità (Accuracy) – varianza e std su test')
 plt.tight_layout()
 plt.show()
